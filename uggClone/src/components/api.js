@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import image from "./leagueBanner.png";
 
 const SummonerInfo = () => {
     const [summonerName, setSummonerName] = useState('');
@@ -39,6 +40,14 @@ const SummonerInfo = () => {
 
     return (
         <div>
+            <div className="banner">
+                <div>
+                    {/*<img src={image} alt="" width="596px" height="148px"/>*/}
+                    <p className="title">MasterTracker</p>
+                    <p className="cc">Track your League of legends champion masteries. ©Yoan Le-Brodeur</p>
+                </div>
+            </div>
+
             <input
                 type="text"
                 placeholder="Summoner Name"
