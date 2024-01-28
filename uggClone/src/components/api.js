@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import image from "./leagueBanner.png";
+import { FaSearch } from "react-icons/fa";
 
 const SummonerInfo = () => {
     const [summonerName, setSummonerName] = useState('');
@@ -43,29 +44,36 @@ const SummonerInfo = () => {
             <div className="banner">
                 <div>
                     {/*<img src={image} alt="" width="596px" height="148px"/>*/}
-                    <p className="title">MasterTracker</p>
+                    <p className="title">MasteryTracker</p>
                     <p className="cc">Track your League of legends champion masteries. ©Yoan Le-Brodeur</p>
                 </div>
             </div>
 
-            <input
+            <div className="Info"><input
                 type="text"
-                placeholder="Summoner Name"
+                placeholder="Enter summoner name"
                 value={summonerName}
                 onChange={e => setSummonerName(e.target.value)}
+                className="sumonnerName"
             />
-            <input
-                type="text"
-                placeholder="Tag Line"
-                value={tagLine}
-                onChange={e => setTagLine(e.target.value)}
-            />
-            <button onClick={fetchChampionMastery}>Fetch Info</button>
+                <p className="hashtag">#</p>
+                <input
+                    type="text"
+                    placeholder="Tag (#...)"
+                    value={tagLine}
+                    onChange={e => setTagLine(e.target.value)}
+                    className="tag"
+                />
+                <button onClick={fetchChampionMastery} className="fetch">
+                    <FaSearch/>
+
+                </button>
+            </div>
 
             {championMastery.length > 0 && (
-                <div>
+                <div className="champions">
                     {championMastery.map((mastery, index) => (
-                        <div key={index}>
+                        <div key={index} className="champion-card">
                             <p>Champion ID: {mastery.championId}</p>
                             <p>Level: {mastery.championLevel}</p>
                             <p>Points: {mastery.championPoints}</p>
