@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import image from "./leagueBanner.png";
 import { FaSearch } from "react-icons/fa";
 
@@ -9,13 +9,12 @@ const SummonerInfo = () => {
     const [puuid, setPuuid] = useState('');
     const [error, setError] = useState('');
     const [championMastery, setChampionMastery] = useState([]);
-
+    const [championsMap, setChampionsMap] = useState({});
     const fetchChampionMastery = async () => {
         setError('');
         setChampionMastery([]);
 
         try {
-            // Fetch Summoner Info
             let response = await fetch(`http://localhost:3001/getSummonerInfo?summonerName=${encodeURIComponent(summonerName)}&tagLine=${encodeURIComponent(tagLine)}`);
             if (!response.ok) {
                 setError('Failed to fetch summoner info');
@@ -25,7 +24,6 @@ const SummonerInfo = () => {
             setGameName(data.gameName);
             setPuuid(data.puuid);
 
-            // Fetch Champion Mastery
             response = await fetch(`http://localhost:3001/getChampionMastery?puuid=${encodeURIComponent(data.puuid)}`);
             if (!response.ok) {
                 setError('Failed to fetch champion mastery info');
@@ -38,6 +36,20 @@ const SummonerInfo = () => {
             setError('An error occurred while fetching the info');
         }
     };
+    useEffect(() => {
+        async function getChampionMapping() {
+            try {
+                const response = await fetch('http://localhost:3001/getChampionMapping');
+                const data = await response.json();
+                setChampionsMap(data);
+            } catch (error) {
+                console.error('Error fetching champion mapping:', error);
+                // Handle error appropriately
+            }
+        }
+
+        getChampionMapping();
+    }, []);
 
     return (
         <div>
@@ -72,26 +84,25 @@ const SummonerInfo = () => {
 
             {championMastery.length > 0 && (
                 <div className="champions">
-                    {championMastery.map((mastery, index) => (
-                        <div key={index} className="champion-card">
-                            <p>Champion ID: {mastery.championId}</p>
-                            <p>Level: {mastery.championLevel}</p>
-                            <p>Points: {mastery.championPoints}</p>
-                            {/* ... other mastery data ... */}
-                        </div>
-                    ))}
+                    {championMastery.map((mastery, index) => {
+                        console.log("Current Mastery:", mastery); // Log each mastery object
+                        console.log("Mapped Champion Name:", championsMap[mastery.championId]); // Log the mapped name
+
+                        return (
+                            <div key={index} className="champion-card">
+                                <p>Champion: {championsMap[mastery.championId] || 'Unknown Champion'}</p>
+                                <p>Level: {mastery.championLevel}</p>
+                                <p>Points: {mastery.championPoints}</p>
+                            </div>
+                        );
+                    })}
                 </div>
             )}
+
 
             {error && <div>{error}</div>}
 
-            {gameName && tagLine && puuid && (
-                <div>
-                    <p>Game Name: {gameName}</p>
-                    <p>Tag Line: {tagLine}</p>
-                    <p>Puuid: {puuid}</p>
-                </div>
-            )}
+            )
         </div>
     );
 };

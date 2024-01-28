@@ -59,9 +59,40 @@ app.get('/getChampionMastery', async (req, res) => {
     }
 });
 
+async function fetchChampionData() {
+    const version = '14.2.1';
+    const url = `https://ddragon.leagueoflegends.com/cdn/${version}/data/en_US/champion.json`;
+
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+
+        const championsMap = {};
+        Object.values(data.data).forEach(champion => {
+            championsMap[parseInt(champion.key)] = champion.name;
+        });
+
+        return championsMap;
+    } catch (error) {
+        console.error('Error fetching champion data:', error);
+        return {};
+    }
+}
+
+app.get('/getChampionMapping', async (req, res) => {
+    try {
+        const championsMap = await fetchChampionData();
+        res.json(championsMap);
+    } catch (error) {
+        console.error('Error fetching champion mapping:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
+
 
 
 // npm run, npm run start-server

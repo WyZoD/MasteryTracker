@@ -1,5 +1,3 @@
-
-
 body{
     background: rgb(35, 33, 33);
 }
@@ -25,7 +23,6 @@ body{
     justify-content: center;
     align-items: center;
 
-    /*margin-left: 50px;*/
 }
 .cc {
     font-size: 12px;
@@ -37,7 +34,7 @@ body{
     margin-top: -35px;
     justify-content: center;
     align-items: center;
-    /*margin-left: -80px;*/
+
 }
 
 .Info {
@@ -53,6 +50,7 @@ body{
     height: 20px;
     font-weight: bold;
     font-style: italic;
+    margin-bottom: 80px;
 }
 
 
@@ -61,7 +59,7 @@ body{
     margin: 10px;
     background: #504949;
     border: #504949;
-    color: white;
+    color: #DAA520;
 }
 
 .sumonnerName{
@@ -76,7 +74,7 @@ body{
 }
 
 .hashtag{
-    color: white;
+    color: #DAA520;
     font-weight: bold;
     font-style: italic;
 }
@@ -89,10 +87,25 @@ body{
     outline: none;
 }
 
+.champions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
 
+.champions div {
+    margin-top: 10px;
+    background: #504949;
+    border: #504949;
+    color: #DAA520;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    width: 75%;
+    text-align: center;
+}
 
-
-
-
-
-
+.champions p {
+    margin: 10px 0;
+}
