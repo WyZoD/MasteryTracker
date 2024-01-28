@@ -34,6 +34,30 @@ app.get('/getSummonerInfo', async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
+app.get('/getChampionMastery', async (req, res) => {
+    const apiKey = 'RGAPI-6e987e43-bb53-4115-aa98-cd17e31e8baa';
+    const { puuid } = req.query;
+
+    if (!puuid) {
+        res.status(400).json({ error: 'Missing puuid' });
+        return;
+    }
+
+    try {
+        const response = await fetch(`https://na1.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-puuid/${puuid}?api_key=${apiKey}`);
+
+        if (!response.ok) {
+            res.status(response.status).json({ error: 'Failed to fetch champion mastery info' });
+            return;
+        }
+
+        const data = await response.json();
+        res.json(data);
+    } catch (error) {
+        console.error('Error fetching champion mastery info:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
 
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
