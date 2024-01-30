@@ -8,3 +8,7 @@ Planned features:
 1. UI Redesign with UI Library Imports.
 2. Displaying XP Needed for Next Mastery Level.
 3. Filter and Sort Options.
+
+
+To run: 
+npm install, npm run start-server, npm run
