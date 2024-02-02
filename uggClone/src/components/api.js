@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import image from "./leagueBanner.png";
 import { FaSearch } from "react-icons/fa";
+import {Typography} from "@mui/material";
 
 const SummonerInfo = () => {
     const [summonerName, setSummonerName] = useState('');
@@ -56,8 +57,8 @@ const SummonerInfo = () => {
             <div className="banner">
                 <div>
                     {/*<img src={image} alt="" width="596px" height="148px"/>*/}
-                    <p className="title">MasteryTracker</p>
-                    <p className="cc">Track your League of legends champion masteries. ©Yoan Le-Brodeur</p>
+                    <Typography variant="h1" component="h1">Mastery Tracker</Typography>
+                    <Typography variant="h7" component="h7">Track your League of legends champion masteries. ©Yoan Le-Brodeur</Typography>
                 </div>
             </div>
 
@@ -101,8 +102,6 @@ const SummonerInfo = () => {
 
 
             {error && <div>{error}</div>}
-
-            )
         </div>
     );
 };
